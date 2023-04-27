@@ -1,6 +1,6 @@
-import  {XS_KEY, S_KEY, M_KEY, L_KEY, XL_KEY, XXL_KEY } from './key-sizes';
+import  { XS_KEY, S_KEY, M_KEY, L_KEY, XL_KEY, XXL_KEY } from './key-sizes.js';
 
-const keyButtons = {
+const KeyButtons = {
 
   Backquote: {
     keyCode: 192,
@@ -84,7 +84,7 @@ const keyButtons = {
     keyCode: 8,
     key: { normal: { en: 'Backspace', ru: 'Backspace' }, shifted: { en: 'Backspace', ru: 'Backspace' } },
     type: 'func',
-    width: S_KEY,
+    width: M_KEY,
   },
   Tab: {
     keyCode: 9,
@@ -170,11 +170,17 @@ const keyButtons = {
     type: 'print',
     width: S_KEY,
   },
+  Delete: {
+    keyCode: 46,
+    key: { normal: { en: 'Del', ru: 'Del' }, shifted: { en: 'Del', ru: 'Del' } },
+    type: 'func',
+    width: S_KEY,
+  },
   CapsLock: {
     keyCode: 20,
     key: { normal: { en: 'Capslock', ru: 'Capslock' }, shifted: { en: 'Capslock', ru: 'Capslock' } },
     type: 'func',
-    width: S_KEY,
+    width: XS_KEY,
   },
   KeyA: {
     keyCode: 65,
@@ -246,13 +252,13 @@ const keyButtons = {
     keyCode: 13,
     key: { normal: { en: 'Enter', ru: 'Enter' }, shifted: { en: 'Enter', ru: 'Enter' } },
     type: 'func',
-    width: S_KEY,
+    width: M_KEY,
   },
   ShiftLeft: {
     keyCode: 16,
     key: { normal: { en: 'Shift', ru: 'Shift' }, shifted: { en: 'Shift', ru: 'Shift' } },
     type: 'func',
-    width: S_KEY,
+    width: XS_KEY,
   },
   KeyZ: {
     keyCode: 90,
@@ -314,23 +320,17 @@ const keyButtons = {
     type: 'print',
     width: S_KEY,
   },
-  ShiftRight: {
-    keyCode: 16,
-    key: { normal: { en: 'Shift', ru: 'Shift' }, shifted: { en: 'Shift', ru: 'Shift' } },
-    type: 'func',
-    width: S_KEY,
-  },
   ArrowUp: {
     keyCode: 38,
     key: { normal: { en: '△', ru: '△' }, shifted: { en: '△', ru: '△' } },
     type: 'print',
     width: S_KEY,
   },
-  Delete: {
-    keyCode: 46,
-    key: { normal: { en: 'Del', ru: 'Del' }, shifted: { en: 'Del', ru: 'Del' } },
+  ShiftRight: {
+    keyCode: 16,
+    key: { normal: { en: 'Shift', ru: 'Shift' }, shifted: { en: 'Shift', ru: 'Shift' } },
     type: 'func',
-    width: S_KEY,
+    width: XS_KEY,
   },
   ControlLeft: {
     keyCode: 17,
@@ -354,17 +354,11 @@ const keyButtons = {
     keyCode: 32,
     key: { normal: { en: ' ', ru: ' ' }, shifted: { en: ' ', ru: ' ' } },
     type: 'print',
-    width: S_KEY,
+    width: XXL_KEY,
   },
   AltRight: {
     keyCode: 18,
     key: { normal: { en: 'Alt', ru: 'Alt' }, shifted: { en: 'Alt', ru: 'Alt' } },
-    type: 'func',
-    width: S_KEY,
-  },
-  ControlRight: {
-    keyCode: 17,
-    key: { normal: { en: 'Ctrl', ru: 'Ctrl' }, shifted: { en: 'Ctrl', ru: 'Ctrl' } },
     type: 'func',
     width: S_KEY,
   },
@@ -386,6 +380,12 @@ const keyButtons = {
     type: 'print',
     width: S_KEY,
   },
+  ControlRight: {
+    keyCode: 17,
+    key: { normal: { en: 'Ctrl', ru: 'Ctrl' }, shifted: { en: 'Ctrl', ru: 'Ctrl' } },
+    type: 'func',
+    width: S_KEY,
+  },
 };
 
-export default keyButtons;
+export default KeyButtons;

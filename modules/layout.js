@@ -1,4 +1,6 @@
 // eslint-disable-next-line import/extensions
+import { KeyBoard } from "./keyboard.js";
+import { TextArea } from "./textarea.js";
 
 export class Layout  {
   constructor(){
@@ -33,9 +35,13 @@ export class Layout  {
     info.appendChild(infoOS);
     info.appendChild(infoShortCut);
 
+    let textarea = new TextArea();
+    textarea.init();
+    container.appendChild(textarea.textareaWrap);
 
-
-
+    let keyboard = new KeyBoard();
+    keyboard.init();
+    container.append(keyboard.keyboard);
   }
 
 }
