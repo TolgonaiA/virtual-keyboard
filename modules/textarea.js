@@ -3,15 +3,20 @@
 export class TextArea  {
   constructor(){
     this.textareaWrap = document.createElement('div');
+    this.textarea = document.createElement('textarea');
+    this.value = '';
   }
   
   init() {
-    const textarea = document.createElement('textarea');
-
     this.textareaWrap.classList.add('textarea');
-    textarea.classList.add('textarea__form');
-
-    this.textareaWrap.appendChild(textarea);
+    this.textarea.classList.add('textarea__form');
+    this.textareaWrap.appendChild(this.textarea);
   }
+
+  updateTextarea (value) {
+    this.value = this.value + value
+    this.textarea.innerText = this.value
+  }
+
 
 }
