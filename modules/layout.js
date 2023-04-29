@@ -46,14 +46,23 @@ export class Layout  {
 
     keyboard.classList.add('keyboard');
     let buttons = Object.keys(KeyButtons);
-    for(let i = 0; i < buttons.length; i++) {
-      let button = new Button();
-      button.value = KeyButtons[buttons[i]].key.normal.en;
-      button.width = KeyButtons[buttons[i]].width;
-      button.keyCode = KeyButtons[buttons[i]].keyCode;
-      button.init();
-      keyboard.appendChild(button.button);
+    const addButtons = () => {
+      keyboard.innerHTML = '';
+      for(let i = 0; i < buttons.length; i++) {
+        let button = new Button();
+        if (status === 'capitalized' && KeyButtons[buttons[i]].key.hasOwnProperty('capitalized')) {
+          button.value = KeyButtons[buttons[i]].key[status][lang];
+        } else if (status === 'capitalized' && !KeyButtons[buttons[i]].key.hasOwnProperty('capitalized')) {
+          button.value = KeyButtons[buttons[i]].key['normal'][lang];
+        } else button.value = KeyButtons[buttons[i]].key[status][lang];
+        button.width = KeyButtons[buttons[i]].width;
+        button.keyCode = KeyButtons[buttons[i]].keyCode;
+        button.init();
+        keyboard.appendChild(button.button);
+      }
     }
+    addButtons();
+    
 
     container.appendChild(keyboard);
 
@@ -61,9 +70,18 @@ export class Layout  {
       let id = parseInt(event.target.id);
       let btn = Object.keys(KeyButtons).find(el => KeyButtons[el].keyCode == id)
       if(KeyButtons[btn].type === 'print') {
-        console.log(KeyButtons[btn])
         textarea.updateTextarea(KeyButtons[btn].key[status][lang])
+      } else if (KeyButtons[btn].type === 'func') {
+        console.log(btn)
+        switch (btn) {
+          case 'CapsLock':
+            status === 'normal' ? status = 'capitalized' : status = 'normal'
+            addButtons();
+          case 'Enter':
+            console.log('h')
+        }
       }
+
     })
   }
 
