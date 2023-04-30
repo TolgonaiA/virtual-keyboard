@@ -63,5 +63,8 @@ textarea {
 .keyboard__btn_active {
   border: 1px solid green;
 }
+.keyboard__btn_capslock {
+  border: 1px solid blue;
+}
 
 /*# sourceMappingURL=style.css.map */

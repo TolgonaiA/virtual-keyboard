@@ -1,8 +1,8 @@
 import KeyButtons from "./key-buttons.js";
 
 
-// const lang = 'en';
-// const status = 'normal';
+let language = 'en';
+let status = 'normal';
 
 
 
@@ -10,11 +10,13 @@ import KeyButtons from "./key-buttons.js";
 export class KeyBoard {
   constructor() {
     this.language = localStorage.getItem('storeLanguage') || 'en';
-    this.status = 'normal';
+    this.status = status;
+    this.isCapsLockActive = false;
   }
 
 
   insertButtons() {
+    console.log('status', this.status)
     const fragment = document.createDocumentFragment();
     const names = Object.keys(KeyButtons);
     names.forEach(name => {
@@ -26,6 +28,14 @@ export class KeyBoard {
       fragment.appendChild(button);
     });
     return fragment;
+  };
+
+
+  showCapitalCase() {
+    let buttons = document.querySelectorAll('.keyboard__btn');
+    for(let i = 0; i < buttons.length; i++) {
+      buttons[i].innerText = KeyButtons[buttons[i].getAttribute('name')].key[this.status][this.language]
+    }
   }
 
 
@@ -73,8 +83,17 @@ export class KeyBoard {
 
 
     document.addEventListener('keydown', (event) => {
+      if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight')) {
+        let shiftLeft = document.getElementsByName('ShiftLeft')[0];
+        let shiftRight = document.getElementsByName('ShiftRight')[0];
+        
+        if (![shiftLeft, shiftRight].some((element) => element.classList.contains('keyboard__btn_active'))) {
+          this.status = this.status === 'normal' ? 'shifted' : 'normal'
+        }
+
+        this.showCapitalCase();
+      }
       const start = textarea.selectionStart;
-      let breakLine = '\n';
       let btn = document.getElementsByName(event.code)[0];
       btn.classList.add('keyboard__btn_active');
       if (KeyButtons[event.code].type === 'print') {
@@ -92,17 +111,75 @@ export class KeyBoard {
           case 'Enter':
             if (start === textarea.selectionEnd) {
               textarea.value = textarea.value.slice(0, start)
-                + breakLine
+                + '\n'
                 + textarea.value.slice(textarea.selectionStart);
             } else {
-              textarea.setRangeText(breakLine);
+              textarea.setRangeText('\n');
             }
             textarea.selectionStart = start + 1;
             textarea.selectionEnd = textarea.selectionStart;
             break;
+          case 'Tab':
+            if (start === textarea.selectionEnd) {
+              textarea.value = textarea.value.slice(0, start)
+                + '\t'
+                + textarea.value.slice(textarea.selectionStart);
+            } else {
+              textarea.setRangeText('\t');
+            }
+            textarea.selectionStart = start + 1;
+            textarea.selectionEnd = textarea.selectionStart;
+            break;
+          case 'Delete':
+            if (start === textarea.selectionEnd) {
+              if (start < textarea.value.length) {
+                textarea.value = textarea.value.slice(0, start)
+                  + textarea.value.slice(start + 1);
+                textarea.selectionStart = start;
+                textarea.selectionEnd = textarea.selectionStart;
+              }
+            } else {
+              textarea.setRangeText('');
+            }
+            break;
+          case 'Backspace':
+            if (start === textarea.selectionEnd) {
+              if (start > 0) {
+                textarea.value = textarea.value.slice(0, start - 1)
+                  + textarea.value.slice(start);
+                textarea.selectionStart = start- 1;
+                textarea.selectionEnd = textarea.selectionStart;
+              }
+            } else {
+              textarea.setRangeText('');
+            }
+            break;
         }
       }
-    })
+    });
+
+
+    document.addEventListener('keyup', (event) => {
+      event.preventDefault();
+      let btn = document.getElementsByName(event.code)[0];
+      btn.classList.remove('keyboard__btn_active');
+
+      if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+        console.log('here')
+        this.status = this.status === 'normal' ? 'shifted' : 'normal'
+        
+        this.showCapitalCase();
+      }
+
+      if (event.code === 'CapsLock') {
+        this.status = this.status === 'normal' ? 'shifted' : 'normal'
+        this.showCapitalCase();
+        this.isCapsLockActive = !this.isCapsLockActive;
+        document.getElementsByName(event.code)[0].classList.toggle('keyboard__btn_capslock');
+      }
+
+
+    });
     
   }
 
