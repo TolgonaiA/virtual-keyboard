@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/extensions
-import {Layout} from './modules/layout.js'
+import {KeyBoard} from './modules/keyboard.js'
 
 
-const layout = new Layout();
+const keyboard = new KeyBoard();
 
-layout.init();
+keyboard.init();
 
 
 
