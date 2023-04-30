@@ -27,12 +27,12 @@ textarea {
   font-size: 1.1rem;
 }
 
-.textarea {
+.textarea-wrap {
   max-width: 900px;
   margin: 0 auto;
   padding: 25px 0;
 }
-.textarea__form {
+.textarea-wrap__form {
   box-sizing: border-box;
   display: inline-block;
   overflow: hidden;
@@ -58,6 +58,10 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 50px;
+}
+.keyboard__btn_active {
+  border: 1px solid green;
 }
 
 /*# sourceMappingURL=style.css.map */
