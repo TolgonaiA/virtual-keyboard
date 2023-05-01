@@ -1,7 +1,6 @@
 import KeyButtons from "./key-buttons.js";
 
 
-let language = 'en';
 let status = 'normal';
 
 
@@ -55,7 +54,7 @@ export class KeyBoard {
           <textarea class='textarea-wrap__form'></textarea>
         </div>
         <div class='keyboard'></div>
-        <p class='container__info'>Для переключения языка комбинация: WIN + Space</p>
+        <p class='container__info'>Для переключения языка комбинация ЛЕВЫЕ: CTRL + ALT</p>
     `
     document.body.appendChild(layout);
 
@@ -83,6 +82,7 @@ export class KeyBoard {
 
 
     document.addEventListener('keydown', (event) => {
+      event.preventDefault();
       if ((event.code === 'ShiftLeft' || event.code === 'ShiftRight')) {
         let shiftLeft = document.getElementsByName('ShiftLeft')[0];
         let shiftRight = document.getElementsByName('ShiftRight')[0];
@@ -165,9 +165,7 @@ export class KeyBoard {
       btn.classList.remove('keyboard__btn_active');
 
       if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
-        console.log('here')
         this.status = this.status === 'normal' ? 'shifted' : 'normal'
-        
         this.showCapitalCase();
       }
 
@@ -176,6 +174,15 @@ export class KeyBoard {
         this.showCapitalCase();
         this.isCapsLockActive = !this.isCapsLockActive;
         document.getElementsByName(event.code)[0].classList.toggle('keyboard__btn_capslock');
+      }
+
+      if (event.code === 'ControlLeft') {
+        
+        if (event.altKey) {
+          console.log('lanf')
+          this.language = this.language === 'en' ? 'ru' : 'en';
+          this.showCapitalCase()
+        }
       }
 
 
