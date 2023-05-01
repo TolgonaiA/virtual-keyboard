@@ -25,6 +25,7 @@ textarea {
 }
 .container__info {
   font-size: 1.1rem;
+  padding-top: 15px;
 }
 
 .textarea-wrap {
@@ -52,19 +53,32 @@ textarea {
   width: 866px;
   gap: 6px;
   margin: 0 auto;
+  font-size: 1.2rem;
 }
 .keyboard__btn {
-  border: 1px solid red;
+  border: 1px solid #554e4e;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 50px;
+  transition: all 0.3s;
+  box-shadow: 2px -2px 6px 2px rgba(0, 0, 0, 0.3) inset;
+  cursor: pointer;
 }
 .keyboard__btn_active {
-  border: 1px solid green;
+  background: #000;
+  scale: 0.5;
+  translate: 0;
+}
+.keyboard__btn_func {
+  background: #8d8787;
 }
 .keyboard__btn_capslock {
-  border: 1px solid blue;
+  background: #554e4e;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: -2px 2px 6px 2px rgba(255, 255, 255, 0.8) inset;
 }
 
 /*# sourceMappingURL=style.css.map */

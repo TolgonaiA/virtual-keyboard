@@ -10,12 +10,10 @@ export class KeyBoard {
   constructor() {
     this.language = localStorage.getItem('storeLanguage') || 'en';
     this.status = status;
-    this.isCapsLockActive = false;
   }
 
 
   insertButtons() {
-    console.log('status', this.status)
     const fragment = document.createDocumentFragment();
     const names = Object.keys(KeyButtons);
     names.forEach(name => {
@@ -24,6 +22,9 @@ export class KeyBoard {
       button.style.width = `${KeyButtons[name].width}px`;
       button.innerText = KeyButtons[name].key[this.status][this.language];
       button.setAttribute('name', name);
+      if(KeyButtons[name].type === 'func') {
+        button.classList.add('keyboard__btn_func');
+      }
       fragment.appendChild(button);
     });
     return fragment;
@@ -39,10 +40,7 @@ export class KeyBoard {
 
 
   init() {
-    //сохраняю language в localStorage
-    window.addEventListener('beforeunload', () => {
-      localStorage.setItem('storeLanguage', this.language)
-    });
+    
 
     //отрисовываю страницу и добавляю кнопки
     const layout = document.createElement('div');
@@ -160,39 +158,35 @@ export class KeyBoard {
 
 
     document.addEventListener('keyup', (event) => {
-      event.preventDefault();
-      let btn = document.getElementsByName(event.code)[0];
-      btn.classList.remove('keyboard__btn_active');
+      if(KeyButtons[event.code]) {
+        event.preventDefault();
+        let btn = document.getElementsByName(event.code)[0];
+        btn.classList.remove('keyboard__btn_active');
 
-      if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
-        this.status = this.status === 'normal' ? 'shifted' : 'normal'
-        this.showCapitalCase();
-      }
-
-      if (event.code === 'CapsLock') {
-        this.status = this.status === 'normal' ? 'shifted' : 'normal'
-        this.showCapitalCase();
-        this.isCapsLockActive = !this.isCapsLockActive;
-        document.getElementsByName(event.code)[0].classList.toggle('keyboard__btn_capslock');
-      }
-
-      if (event.code === 'ControlLeft') {
-        
-        if (event.altKey) {
-          console.log('lanf')
-          this.language = this.language === 'en' ? 'ru' : 'en';
-          this.showCapitalCase()
+        if (event.code === 'ShiftLeft' || event.code === 'ShiftRight') {
+          this.status = this.status === 'normal' ? 'shifted' : 'normal'
+          this.showCapitalCase();
         }
-      }
 
+        if (event.code === 'CapsLock') {
+          this.status = this.status === 'normal' ? 'shifted' : 'normal'
+          this.showCapitalCase();
+          document.getElementsByName(event.code)[0].classList.toggle('keyboard__btn_capslock');
+        }
+
+        if (event.code === 'ControlLeft') {
+          if (event.altKey) {
+            this.language = this.language === 'en' ? 'ru' : 'en';
+            this.showCapitalCase();
+          }
+        };
+      }
 
     });
-    
+
+    //сохраняю language в localStorage
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('storeLanguage', this.language);
+    });
   }
-
-
- 
-
-  
-  
 }
