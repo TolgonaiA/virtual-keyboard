@@ -1,0 +1,84 @@
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  font-size: 10px;
+}
+
+h1,
+p,
+textarea {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
+  text-align: center;
+}
+.container__title {
+  font-size: 2rem;
+  padding: 30px 0 15px;
+}
+.container__info {
+  font-size: 1.1rem;
+  padding-top: 15px;
+}
+
+.textarea-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 25px 0;
+}
+.textarea-wrap__form {
+  box-sizing: border-box;
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  resize: none;
+  font-size: 1.2rem;
+}
+
+.keyboard {
+  border: 2px solid #000;
+  background: #ccc;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 866px;
+  gap: 6px;
+  margin: 0 auto;
+  font-size: 1.2rem;
+}
+.keyboard__btn {
+  border: 1px solid #554e4e;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  transition: all 0.3s;
+  box-shadow: 2px -2px 6px 2px rgba(0, 0, 0, 0.3) inset;
+  cursor: pointer;
+}
+.keyboard__btn_active {
+  background: #000;
+  scale: 0.5;
+  translate: 0;
+}
+.keyboard__btn_func {
+  background: #8d8787;
+}
+.keyboard__btn_capslock {
+  background: #554e4e;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: -2px 2px 6px 2px rgba(255, 255, 255, 0.8) inset;
+}
+
+/*# sourceMappingURL=style.css.map */
