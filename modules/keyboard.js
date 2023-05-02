@@ -40,9 +40,6 @@ export class KeyBoard {
 
 
   init() {
-    
-
-    //отрисовываю страницу и добавляю кнопки
     const layout = document.createElement('div');
     layout.classList.add('container');
     layout.innerHTML = `
